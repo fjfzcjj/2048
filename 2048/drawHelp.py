@@ -1,0 +1,22 @@
+def drawRect(lx,ly,wx,wy,turtle):
+	turtle.penup()
+	turtle.goto(lx,ly)
+	turtle.pendown()
+	turtle.goto(lx+wx,ly)
+	turtle.goto(lx+wx,ly+wy)
+	turtle.goto(lx,ly+wy)
+	turtle.goto(lx,ly)
+	turtle.penup()
+
+def drawRectFill(lx,ly,wx,wy,turtle,color):
+	turtle.penup()
+	turtle.color(color)
+	turtle.goto(lx,ly)
+	turtle.begin_fill()
+	turtle.pendown()
+	turtle.goto(lx+wx,ly)
+	turtle.goto(lx+wx,ly+wy)
+	turtle.goto(lx,ly+wy)
+	turtle.goto(lx,ly)
+	turtle.end_fill()
+	turtle.penup()
