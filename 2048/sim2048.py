@@ -3,7 +3,7 @@ from game2048 import play2048
 
 
 # MODE
-mode = "sim" # set to user, viewSim, or sim
+mode = "viewSim" # set to user, viewSim, or sim
 
 # screen parameters
 wX = 700	# size of the screen in the x-direction (pixels)
@@ -98,5 +98,5 @@ else:
 # game = play2048(screenSetup,scoreSetup,scoreText,wCor,shapeInfo,colors,screen,pen,scoreObj,tiles,mode) # create the game object
 # game.setupGame()	# setup the game
 # game.loop()			# start the game
-if mode!="sim":
+if mode != "sim":
 	turtle.mainloop()		

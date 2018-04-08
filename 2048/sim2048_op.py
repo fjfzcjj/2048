@@ -1,5 +1,5 @@
 import turtle
-from original import play2048
+from game2048 import play2048
 
 
 # MODE
