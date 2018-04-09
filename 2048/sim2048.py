@@ -1,9 +1,10 @@
 import turtle
 from game2048 import play2048
-
+import sys
+import gc
 
 # MODE
-mode = "viewSim" # set to user, viewSim, or sim
+mode = "sim" # set to user, viewSim, or sim
 
 # screen parameters
 wX = 700	# size of the screen in the x-direction (pixels)
@@ -71,6 +72,7 @@ if mode!="sim":
 	screen = turtle.Screen()	# the screen
 	pen = turtle.Turtle()		# the object that draws everything except for the score
 	scoreObj = turtle.Turtle()	# the object that draws the score
+	sys.setrecursionlimit(2000)
 else:
 	screen = "BOOP"
 	pen = "BAP"
@@ -88,7 +90,7 @@ if mode=="sim":
 		scores.append(game.currentScore)
 		del game
 		avScor += scores[n]/N
-		print("Done {} of {}, score = {}".format(n,N,scores[n]))
+		print("Done {} of {}, score = {}".format(n+1,N,scores[n]))
 	print("Average Score: {:0.2f}".format(avScor))
 else:
 	game = play2048(screenSetup,scoreSetup,scoreText,wCor,shapeInfo,colors,screen,pen,scoreObj,tiles,mode)
