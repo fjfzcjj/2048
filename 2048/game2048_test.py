@@ -3,8 +3,8 @@ import random
 import drawHelp
 import time
 import copy
-import gc
-import sys
+
+
 
 
 class play2048():
@@ -46,8 +46,6 @@ class play2048():
 		self.numMoves = 0
 		self.simMove = 0
 		self.mode = mode
-		sys.setrecursionlimit(5000)
-
 		if mode == "sim":
 			self.startSim()
 		return
@@ -174,21 +172,21 @@ class play2048():
 	def upRule(self, actualList, doScore):
 		numList = copy.deepcopy(actualList)
 		for i in range(0, 4):
-			sumNum = numList[i][0] + numList[i][1] + numList[i][2] + numList[i][3]
-			while numList[i][3] == 0 and sumNum != 0:
+			sum_movesNum = numList[i][0] + numList[i][1] + numList[i][2] + numList[i][3]
+			while numList[i][3] == 0 and sum_movesNum != 0:
 				numList[i][3] = numList[i][2]
 				numList[i][2] = numList[i][1]
 				numList[i][1] = numList[i][0]
 				numList[i][0] = 0
 
-			sumNum = numList[i][0] + numList[i][1] + numList[i][2]
-			while numList[i][2] == 0 and sumNum != 0:
+			sum_movesNum = numList[i][0] + numList[i][1] + numList[i][2]
+			while numList[i][2] == 0 and sum_movesNum != 0:
 				numList[i][2] = numList[i][1]
 				numList[i][1] = numList[i][0]
 				numList[i][0] = 0
 
-			sumNum = numList[i][0] + numList[i][1]
-			while numList[i][1] == 0 and sumNum != 0:
+			sum_movesNum = numList[i][0] + numList[i][1]
+			while numList[i][1] == 0 and sum_movesNum != 0:
 				numList[i][1] = numList[i][0]
 				numList[i][0] = 0
 
@@ -217,19 +215,19 @@ class play2048():
 	def downRule(self, actualList, doScore):
 		numList = copy.deepcopy(actualList)
 		for i in range(0, 4):
-			sumNum = numList[i][0] + numList[i][1] + numList[i][2] + numList[i][3]
-			while numList[i][0] == 0 and sumNum != 0:
+			sum_movesNum = numList[i][0] + numList[i][1] + numList[i][2] + numList[i][3]
+			while numList[i][0] == 0 and sum_movesNum != 0:
 				numList[i][0] = numList[i][1]
 				numList[i][1] = numList[i][2]
 				numList[i][2] = numList[i][3]
 				numList[i][3] = 0
-			sumNum = numList[i][1] + numList[i][2] + numList[i][3]
-			while numList[i][1] == 0 and sumNum != 0:
+			sum_movesNum = numList[i][1] + numList[i][2] + numList[i][3]
+			while numList[i][1] == 0 and sum_movesNum != 0:
 				numList[i][1] = numList[i][2]
 				numList[i][2] = numList[i][3]
 				numList[i][3] = 0
-			sumNum = numList[i][2] + numList[i][3]
-			while numList[i][2] == 0 and sumNum != 0:
+			sum_movesNum = numList[i][2] + numList[i][3]
+			while numList[i][2] == 0 and sum_movesNum != 0:
 				numList[i][2] = numList[i][3]
 				numList[i][3] = 0
 
@@ -259,19 +257,19 @@ class play2048():
 	def leftRule(self, actualList, doScore):
 		numList = copy.deepcopy(actualList)
 		for i in range(0, 4):
-			sumNum = numList[0][i] + numList[1][i] + numList[2][i] + numList[3][i]
-			while numList[0][i] == 0 and sumNum != 0:
+			sum_movesNum = numList[0][i] + numList[1][i] + numList[2][i] + numList[3][i]
+			while numList[0][i] == 0 and sum_movesNum != 0:
 				numList[0][i] = numList[1][i]
 				numList[1][i] = numList[2][i]
 				numList[2][i] = numList[3][i]
 				numList[3][i] = 0
-			sumNum = numList[1][i] + numList[2][i] + numList[3][i]
-			while numList[1][i] == 0 and sumNum != 0:
+			sum_movesNum = numList[1][i] + numList[2][i] + numList[3][i]
+			while numList[1][i] == 0 and sum_movesNum != 0:
 				numList[1][i] = numList[2][i]
 				numList[2][i] = numList[3][i]
 				numList[3][i] = 0
-			sumNum = numList[2][i] + numList[3][i]
-			while numList[2][i] == 0 and sumNum != 0:
+			sum_movesNum = numList[2][i] + numList[3][i]
+			while numList[2][i] == 0 and sum_movesNum != 0:
 				numList[2][i] = numList[3][i]
 				numList[3][i] = 0
 
@@ -300,19 +298,19 @@ class play2048():
 	def rightRule(self, actualList, doScore):
 		numList = copy.deepcopy(actualList)
 		for i in range(0, 4):
-			sumNum = numList[0][i] + numList[1][i] + numList[2][i] + numList[3][i]
-			while numList[3][i] == 0 and sumNum != 0:
+			sum_movesNum = numList[0][i] + numList[1][i] + numList[2][i] + numList[3][i]
+			while numList[3][i] == 0 and sum_movesNum != 0:
 				numList[3][i] = numList[2][i]
 				numList[2][i] = numList[1][i]
 				numList[1][i] = numList[0][i]
 				numList[0][i] = 0
-			sumNum = numList[0][i] + numList[1][i] + numList[2][i]
-			while numList[2][i] == 0 and sumNum != 0:
+			sum_movesNum = numList[0][i] + numList[1][i] + numList[2][i]
+			while numList[2][i] == 0 and sum_movesNum != 0:
 				numList[2][i] = numList[1][i]
 				numList[1][i] = numList[0][i]
 				numList[0][i] = 0
-			sumNum = numList[0][i] + numList[1][i]
-			while numList[1][i] == 0 and sumNum != 0:
+			sum_movesNum = numList[0][i] + numList[1][i]
+			while numList[1][i] == 0 and sum_movesNum != 0:
 				numList[1][i] = numList[0][i]
 				numList[0][i] = 0
 
@@ -398,7 +396,7 @@ class play2048():
 			sliceVal = random.randint(0, len(allowed) - 1)
 			gridLoc = allowed[sliceVal]
 			testNum = random.uniform(0, 1)
-			if testNum < 0.99:
+			if testNum < 0.90:
 				numList[gridLoc[0]][gridLoc[1]] = 2
 			else:
 				numList[gridLoc[0]][gridLoc[1]] = 4
@@ -448,7 +446,7 @@ class play2048():
 	# 	pass
 	# 	depth = final_step
 
-	def strategy(self, games_per_move=100):
+	def strategy(self, games_per_move=200):
 		"""
 		Monte Carlo algorithm is used here.
 		Starting at any move, clone a second game board, simulate it till its end.
@@ -469,18 +467,23 @@ class play2048():
 		sim_board = current_board
 		moves = ['up', 'down', 'left', 'right']
 		methods = {'up': self.upRule, 'down': self.downRule, 'left': self.leftRule, 'right': self.rightRule}
-		sum = {'up': 0.0, 'down': 0.0, 'left': 0.0, 'right': 0.0}
+		sum_moves = {'up': 0.0, 'down': 0.0, 'left': 0.0, 'right': 0.0}
 		move_count = {'up': 0, 'down': 0, 'left': 0, 'right': 0}
 		first_move = None
-		unava = []
+		unavailable = []
 
-		def dup_check(board):
+		def dup_check():
+			"""This function checks if movements in either directions will result in a identical board,
+			then we know that direction should not be available."""
+			nonlocal unavailable
 			for dire in moves[:]:
-				if methods[dire](board,False) == current_board:
-					unava.append(dire)
-					sum.pop(dire)
+				after_board = methods[dire](current_board, False)
+				if after_board == current_board:
+					unavailable.append(dire)
+					sum_moves.pop(dire)
 					move_count.pop(dire)
-
+					if unavailable != []:
+						print('There is unavailable:', unavailable)
 
 		def end(board):
 			for i in range(4):
@@ -498,7 +501,7 @@ class play2048():
 						allowed.append([i, j])
 			choice = random.choice(allowed)
 			testNum = random.uniform(0, 1)
-			if testNum < 0.99:
+			if testNum < 0.90:
 				board[choice[0]][choice[1]] = 2
 				return choice
 			else:
@@ -511,47 +514,44 @@ class play2048():
 				dir = random.choice(moves)
 				result_board = methods[dir](board, doScore=True)
 				drop(result_board)
-				# This is to prevent fatal python error: stack overflow;
-				# Uncontrolled recursion(with error) is possible to create problem
 				return random_move(result_board)
 			else:
 				return None
 
 		def process():
 			nonlocal first_move
-			first_move = random.choice([x for x in moves if x not in unava])
+			possible = [dir for dir in moves if dir not in unavailable]
+			first_move = random.choice(possible)
 			result = methods[first_move](actualList=sim_board, doScore=True)
 			drop(result)
 			random_move(result)
 
-		dup_check(current_board)
+########################################################################################################################
+		dup_check()
 		for n in range(games_per_move):
-			if not end(current_board):
-				process()
-				# print('{:>4}'.format(n+1), 'th sim with end score of', self.currentScore)
-				sum[first_move] += self.currentScore
-				move_count[first_move] += 1
-				self.currentScore = storing
-				first_move = None
-			else:
-				gc.collect()
-				return random.choice(moves)
+			process()
+			sum_moves[first_move] += self.currentScore
+			print(n+1, 'th sim with an end score of:', self.currentScore)
+			move_count[first_move] += 1
+			self.currentScore = storing
+			first_move = None
 
 		pairs = []
-		for key in iter(sum.keys()):
-			duo = (key, sum[key])
+		for key in iter(sum_moves.keys()):
+			duo = (key, sum_moves[key])
 			pairs.append(duo)
 
 		average_list = []
-		for dir, sum in pairs[:]:
-			ave = sum / move_count[dir]
-			duo = (dir, ave)
+		for dire, sum_num in pairs[:]:
+			ave = sum_num / move_count[dire]
+			# Nota bene: If games_per_move is a low value, there is a chance that a direction never gets randomly chosen.
+			# Therefore will result in a move_count[dire] = 0, creating a ZeroDivisionError.
+			# Possible fix: Making move_count of each direction even. (50,50,50,50) for 200 moves.
+			duo = (dire, ave)
 			average_list.append(duo)
 
 		result = sorted(average_list, key=lambda x: x[1], reverse=True)
-		gc.collect()
 		return result[0][0]
-
 
 	def gameOver(self):
 		notFull = False
@@ -580,6 +580,7 @@ class play2048():
 				return False
 
 			return True
+
 
 
 

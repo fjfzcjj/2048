@@ -1,9 +1,10 @@
 import turtle
 from game2048 import play2048
-
+import sys
+import gc
 
 # MODE
-mode = "viewSim" # set to user, viewSim, or sim
+mode = "sim" # set to user, viewSim, or sim
 
 # screen parameters
 wX = 700	# size of the screen in the x-direction (pixels)
@@ -71,6 +72,7 @@ if mode!="sim":
 	screen = turtle.Screen()	# the screen
 	pen = turtle.Turtle()		# the object that draws everything except for the score
 	scoreObj = turtle.Turtle()	# the object that draws the score
+	sys.setrecursionlimit(2000)
 else:
 	screen = "BOOP"
 	pen = "BAP"
@@ -78,22 +80,62 @@ else:
 
 # start game
 if mode=="sim":
-	scores = list()
-	avScor = 0
 	N = 1000
-	for n in range(N):
-		game = play2048(screenSetup,scoreSetup,scoreText,wCor,shapeInfo,colors,screen,pen,scoreObj,tiles,mode) # create the game object
-		game.setupGame()	# setup the game
-		game.loop()			# start the game
-		scores.append(game.currentScore)
-		del game
-		avScor += scores[n]/N
-		print("Done {} of {}, score = {}".format(n,N,scores[n]))
-	print("Average Score: {:0.2f}".format(avScor))
+	file_name = "score.txt"
+	with open(file_name , 'r') as f:
+		text = f.read()
+		try:
+			append_f = open(file_name, 'a')
+			last_score = text.splitlines()[-1]
+			number = int(last_score.split(sep='. ')[0])
+			print(number)
+
+			if number < N:
+				for n in range(N - number):
+					game = play2048(screenSetup, scoreSetup, scoreText, wCor, shapeInfo, colors, screen, pen, scoreObj,
+					                tiles, mode)  # create the game object
+					game.setupGame()  # setup the game
+					game.loop()  # start the game
+					append_f.write('{}. {}'.format(number + n + 1, game.currentScore))
+					print("Done {} of {}, score = {}".format(number +n + 1, N, game.currentScore))
+					append_f.write('\n')
+					del game
+
+		except (IndexError, ValueError):
+			try:
+				game = play2048(screenSetup, scoreSetup, scoreText, wCor, shapeInfo, colors, screen, pen, scoreObj,
+				                tiles, mode)  # create the game object
+				game.setupGame()  # setup the game
+				game.loop()
+				write_f = open(file_name, 'w')
+				write_f.write('{}. {}'.format('1', game.currentScore))
+				print("Done {} of {}, score = {}".format(1, N, game.currentScore))
+				write_f.write('\n')
+				del game
+			except KeyboardInterrupt:
+				write_f.close()
+
+			try:
+				for n in range(N - 1):
+					game = play2048(screenSetup, scoreSetup, scoreText, wCor, shapeInfo, colors, screen, pen, scoreObj,
+					                tiles, mode)  # create the game object
+					game.setupGame()  # setup the game
+					game.loop()  # start the game
+					write_f.write('{}. {}'.format(n + 2, game.currentScore))
+					print("Done {} of {}, score = {}".format(n+2, N, game.currentScore))
+					write_f.write('\n')
+					del game
+
+			except KeyboardInterrupt:
+				write_f.close()
+
+
+
 else:
 	game = play2048(screenSetup,scoreSetup,scoreText,wCor,shapeInfo,colors,screen,pen,scoreObj,tiles,mode)
 	game.setupGame()
 	game.loop()
+
 # exit condition
 # game = play2048(screenSetup,scoreSetup,scoreText,wCor,shapeInfo,colors,screen,pen,scoreObj,tiles,mode) # create the game object
 # game.setupGame()	# setup the game
